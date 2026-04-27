@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎉</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  overflow: hidden;
+  color: white;
+}
+
+/* Center box */
+.container {
+  position: relative;
+  top: 30%;
+}
+
+/* Button */
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #ff4d6d;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+/* Hidden content */
+.hidden {
+  display: none;
+}
+
+/* Message */
+h1 {
+  font-size: 40px;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 20px;
+}
+
+/* Balloons */
+.balloon {
+  position: absolute;
+  bottom: -100px;
+  width: 40px;
+  height: 60px;
+  background: red;
+  border-radius: 50%;
+  animation: float 6s infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-110vh); }
+}
+
+/* Typing cursor */
+.typing::after {
+  content: "|";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <button onclick="startSurprise()">🎁 Click to Open</button>
+
+  <div id="content" class="hidden">
+    <h1 id="title"></h1>
+    <p id="message"></p>
+  </div>
+</div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+const name = "Dear Abdul Ahad"; // 👉 change name
+const text1 = "🎉 Happy Birthday " + name + "!";
+const text2 = "You are an amazing student of my class and programmer 💻✨\nKeep growing and achieving success 🚀";
+
+function startSurprise() {
+  document.querySelector("button").style.display = "none";
+  document.getElementById("content").classList.remove("hidden");
+
+  document.getElementById("music").play();
+
+  typeEffect("title", text1, 80);
+  setTimeout(() => {
+    typeEffect("message", text2, 40);
+  }, 2000);
+
+  createBalloons();
+}
+
+// Typing effect
+function typeEffect(id, text, speed) {
+  let i = 0;
+  let element = document.getElementById(id);
+  element.innerHTML = "";
+  element.classList.add("typing");
+
+  function typing() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    } else {
+      element.classList.remove("typing");
+    }
+  }
+  typing();
+}
+
+// Balloons
+function createBalloons() {
+  for (let i = 0; i < 20; i++) {
+    let balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.background = randomColor();
+    balloon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(balloon);
+  }
+}
+
+// Random colors
+function randomColor() {
+  const colors = ["#ff4d6d", "#ffbe0b", "#3a86ff", "#8338ec"];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+</script>
+
+</body>
+</html>
